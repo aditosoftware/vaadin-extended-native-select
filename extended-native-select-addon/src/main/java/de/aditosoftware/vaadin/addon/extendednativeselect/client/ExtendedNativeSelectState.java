@@ -1,4 +1,4 @@
-package de.aditosoftware.client;
+package de.aditosoftware.vaadin.addon.extendednativeselect.client;
 
 import com.vaadin.shared.ui.AbstractSingleSelectState;
 

@@ -1,4 +1,4 @@
-package de.aditosoftware;
+package de.aditosoftware.vaadin.addon.extendednativeselect;
 
 import com.vaadin.data.HasDataProvider;
 import com.vaadin.data.provider.DataProvider;
@@ -6,7 +6,7 @@ import com.vaadin.event.FieldEvents;
 import com.vaadin.shared.Registration;
 import com.vaadin.shared.data.DataCommunicatorConstants;
 import com.vaadin.ui.AbstractSingleSelect;
-import de.aditosoftware.client.ExtendedNativeSelectState;
+import de.aditosoftware.vaadin.addon.extendednativeselect.client.ExtendedNativeSelectState;
 
 /**
  * A native select implementation which supports placeholders and empty selections.

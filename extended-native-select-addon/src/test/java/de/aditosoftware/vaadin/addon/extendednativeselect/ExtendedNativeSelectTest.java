@@ -1,4 +1,4 @@
-package de.aditosoftware;
+package de.aditosoftware.vaadin.addon.extendednativeselect;
 
 import junit.framework.Assert;
 import org.junit.Test;

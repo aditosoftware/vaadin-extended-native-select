@@ -1,4 +1,4 @@
-package de.aditosoftware.client;
+package de.aditosoftware.vaadin.addon.extendednativeselect.client;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.shared.HandlerRegistration;
@@ -11,8 +11,8 @@ import com.vaadin.shared.Registration;
 import com.vaadin.shared.data.DataCommunicatorConstants;
 import com.vaadin.shared.data.selection.SelectionServerRpc;
 import com.vaadin.shared.ui.Connect;
-import de.aditosoftware.ExtendedNativeSelect;
-import de.aditosoftware.client.util.KeyValueOption;
+import de.aditosoftware.vaadin.addon.extendednativeselect.ExtendedNativeSelect;
+import de.aditosoftware.vaadin.addon.extendednativeselect.client.util.KeyValueOption;
 import elemental.json.JsonObject;
 import elemental.json.JsonValue;
 

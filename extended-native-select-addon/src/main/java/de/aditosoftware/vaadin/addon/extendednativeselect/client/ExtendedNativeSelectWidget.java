@@ -1,4 +1,4 @@
-package de.aditosoftware.client;
+package de.aditosoftware.vaadin.addon.extendednativeselect.client;
 
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.OptionElement;
@@ -10,7 +10,7 @@ import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.FocusWidget;
 import com.google.gwt.user.client.ui.HasEnabled;
-import de.aditosoftware.client.util.KeyValueOption;
+import de.aditosoftware.vaadin.addon.extendednativeselect.client.util.KeyValueOption;
 
 import java.util.List;
 import java.util.Map;

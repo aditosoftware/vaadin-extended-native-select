@@ -1,4 +1,4 @@
-package de.aditosoftware.client.util;
+package de.aditosoftware.vaadin.addon.extendednativeselect.client.util;
 
 /**
  * Represents an option which contains a key and a value.
