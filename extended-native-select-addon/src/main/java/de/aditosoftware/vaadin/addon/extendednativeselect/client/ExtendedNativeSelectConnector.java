@@ -1,9 +1,6 @@
 package de.aditosoftware.vaadin.addon.extendednativeselect.client;
 
-import com.google.gwt.core.client.GWT;
-import com.google.gwt.event.shared.HandlerRegistration;
 import com.vaadin.client.annotations.OnStateChange;
-import com.vaadin.client.communication.StateChangeEvent;
 import com.vaadin.client.connectors.AbstractSingleSelectConnector;
 import com.vaadin.client.data.DataSource;
 import com.vaadin.shared.Range;
@@ -20,9 +17,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Connect(ExtendedNativeSelect.class)
-public class ExtendedNativeSelectConnector extends AbstractSingleSelectConnector<ExtendedNativeSelectWidget> {
+public class ExtendedNativeSelectConnector
+    extends AbstractSingleSelectConnector<ExtendedNativeSelectWidget> {
+
   // Listener registrations.
-  private HandlerRegistration handlerRegistration;
   private Registration dataSourceChangeRegistration;
 
   // RPC registrations.
@@ -32,54 +30,76 @@ public class ExtendedNativeSelectConnector extends AbstractSingleSelectConnector
   @Override
   protected void init () {
     super.init();
-    getWidget().addChangeListener(key -> {
-      selectionRpc.select(key);
-    });
+
+    // Add a change listener, which will be called when the value changes on
+    // the client-side.
+    getWidget().getSelect().addChangeListener(selectionRpc::select);
   }
 
-  // We must implement getWidget() to cast to correct type
-  // (this will automatically create the correct widget type)
-  @Override
-  public ExtendedNativeSelectWidget getWidget () {
-    return super.getWidget();
-  }
-
-  // We must implement getState() to cast to correct type
   @Override
   public ExtendedNativeSelectState getState () {
     return (ExtendedNativeSelectState) super.getState();
   }
 
-  // Whenever the state changes in the server-side, this method is called
-  @Override
-  public void onStateChanged (StateChangeEvent stateChangeEvent) {
-    super.onStateChanged(stateChangeEvent);
-  }
-
+  /**
+   * Will update the current {@link InnerSelectWidget} when the "emptySelectionAllowed"
+   * property changes. This will simply delegate the new value of th property
+   * to the widget.
+   */
   @OnStateChange({"emptySelectionAllowed", "placeholder"})
   private void onEmptySelectionChange () {
-    getWidget().setEmptySelectionAllowed(getState().emptySelectionAllowed);
-    getWidget().setPlaceholder(getState().placeholder);
+    getWidget().getSelect().setEmptySelectionAllowed(getState().emptySelectionAllowed);
   }
 
+  /**
+   * Will update the current {@link InnerSelectWidget} when the "placeholder" property
+   * changes. This will simply delegate the new value of the property to the
+   * widget.
+   */
+  @OnStateChange({"placeholder"})
+  private void onPlaceholderChange () {
+    getWidget().getSelect().setPlaceholder(getState().placeholder);
+  }
+
+  /**
+   * Will update the currently selected item on the current {@link InnerSelectWidget}
+   * when the "selectedItemItemKey" property changes. This will simply delegate
+   * the new value of the property to the widget.
+   */
   @OnStateChange({"selectedItemKey"})
   private void onSelectedItemKeyChange () {
-    getWidget().setCurrentValue(new KeyValueOption(getState().selectedItemKey, null));
+    String key = getState().selectedItemKey;
+
+    // If null is given, this means that no value (aka placeholder) shall be
+    // selected.
+    if (key == null)
+      getWidget().getSelect().setCurrentValue(null);
+    else
+      getWidget().getSelect().setCurrentValue(getState().selectedItemKey);
   }
 
+  /**
+   * Will unregister the current {@link DataSource}, if there have been any
+   * and register listeners on the given one and will continue to use the
+   * given one.
+   *
+   * @param dataSource The new DataSource to use for this connector.
+   */
   @Override
   public void setDataSource (DataSource<JsonObject> dataSource) {
-    // Remove the previous listener.
+    // Remove the previous listener if given.
     if (dataSourceChangeRegistration != null)
       dataSourceChangeRegistration.remove();
 
     // Add a change listener on the new DataSource.
     dataSourceChangeRegistration = dataSource.addDataChangeHandler(this::onDataChange);
+
     super.setDataSource(dataSource);
   }
 
   /**
    * Will process the current {@link DataSource} (provided by {@link this#getDataSource()}.
+   * This will also update the currently selected value.
    *
    * @param range The new range for the data.
    */
@@ -95,7 +115,8 @@ public class ExtendedNativeSelectConnector extends AbstractSingleSelectConnector
         entries.add(new KeyValueOption(keyValue.asString(), dataValue.asString()));
     }
 
-    getWidget().setOptions(entries, false);
+    // Set the generated options and also update the selected item if available.
+    getWidget().getSelect().setOptions(entries, false);
     onSelectedItemKeyChange();
   }
 }
