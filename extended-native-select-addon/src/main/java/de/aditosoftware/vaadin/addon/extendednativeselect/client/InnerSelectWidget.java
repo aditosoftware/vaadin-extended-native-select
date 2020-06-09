@@ -44,6 +44,7 @@ class InnerSelectWidget extends FocusWidget implements HasEnabled, Focusable {
     super(DOM.createSelect());
 
     // Set the primary style on the select element.
+    //noinspection GWTStyleCheck
     setStylePrimaryName("v-extended-native-select-select");
 
     // Set the "required" attribute on the select element to provide the
@@ -262,19 +263,29 @@ class InnerSelectWidget extends FocusWidget implements HasEnabled, Focusable {
       getSelectElement().setValue(PLACEHOLDER_VALUE);
 
     String value = getSelectElement().getValue();
+
+    // If the new value is the placeholder or the empty value, we can just
+    // set the current value to null, as the empty value redirects to the
+    // placeholder.
     if (value.equals(PLACEHOLDER_VALUE) || value.equals(EMPTY_VALUE)) {
       currentValue = null;
     } else {
+      // Try to resolve the incoming exposed option ID into an internal one.
       String internalOptionID = getInternalOptionID(value);
+
+      // If the conversion to an internal option ID failed, we can just set
+      // the current value to null and refresh the selection to avoid invalid
+      // state.
       if (internalOptionID == null) {
-        // If the exposed value could not be parsed, just reset it and refresh.
         currentValue = null;
         refresh();
       } else {
+        // Resolve the option by the given internal option ID.
         currentValue = getOptionByKey(internalOptionID);
       }
     }
 
+    // Notify the change listeners with the new value.
     changeListeners.forEach(it -> it.accept(currentValue.getKey()));
   }
 

@@ -12,15 +12,18 @@ import com.google.gwt.user.client.ui.SimplePanel;
  * Implements an wrapper element for a {@link InnerSelectWidget}. This will delegate
  * most available operations to the underlying {@link InnerSelectWidget} widget.
  */
-public class ExtendedNativeSelectWidget extends SimplePanel implements HasEnabled, Focusable, HasAllFocusHandlers {
+public class ExtendedNativeSelectWidget
+    extends SimplePanel
+    implements HasEnabled, Focusable, HasAllFocusHandlers {
   private final InnerSelectWidget select;
 
   public ExtendedNativeSelectWidget () {
-    // Create the VSelect element and select it as widget for this panel.
+    // Create the InnerSelectWidget element and select it as widget for this panel.
     select = new InnerSelectWidget();
     setWidget(select);
 
     // Set the primary style name for this wrapper widget.
+    //noinspection GWTStyleCheck
     setStylePrimaryName("v-extended-native-select");
   }
 
