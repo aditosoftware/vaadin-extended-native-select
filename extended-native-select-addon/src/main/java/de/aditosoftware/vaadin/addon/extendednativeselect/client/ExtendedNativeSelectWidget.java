@@ -1,5 +1,6 @@
 package de.aditosoftware.vaadin.addon.extendednativeselect.client;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.OptionElement;
 import com.google.gwt.dom.client.SelectElement;
@@ -22,6 +23,7 @@ public class ExtendedNativeSelectWidget extends FocusWidget implements HasEnable
   // Statics.
   private static final String PLACEHOLDER_VALUE = "$placeholder";
   private static final String EMPTY_VALUE = "$empty";
+  private static final String ATTR_DISABLED = "disabled";
 
   // Configuration properties.
   private boolean emptySelectionAllowed = false;
@@ -38,6 +40,7 @@ public class ExtendedNativeSelectWidget extends FocusWidget implements HasEnable
     super(DOM.createDiv());
     setStylePrimaryName("v-extended-native-select");
 
+    // Create a select element, which is the child of the root div.
     selectElement = DOM.createSelect();
     selectElement.addClassName("v-extended-native-select-select");
     getElement().appendChild(selectElement);
@@ -151,6 +154,28 @@ public class ExtendedNativeSelectWidget extends FocusWidget implements HasEnable
         ChangeEvent.getType());
   }
 
+  @Override
+  public void setEnabled (boolean enabled) {
+    if (!enabled)
+      getSelectElement().setAttribute(ATTR_DISABLED, "");
+    else
+      getSelectElement().removeAttribute(ATTR_DISABLED);
+  }
+
+  @Override
+  public boolean isEnabled () {
+    return !getSelectElement().getPropertyBoolean(ATTR_DISABLED);
+  }
+
+  /**
+   * Will return the element of this widget casted to an {@link SelectElement}.
+   *
+   * @return The current element as {@link SelectElement}.
+   */
+  public SelectElement getSelectElement () {
+    return selectElement.cast();
+  }
+
   /**
    * Will refresh the current select element. This will basically just clear
    * the select element and add the required option elements.
@@ -262,27 +287,5 @@ public class ExtendedNativeSelectWidget extends FocusWidget implements HasEnable
       // index 1, otherwise on 0.
       getSelectElement().setSelectedIndex(emptySelectionAllowed ? 1 : 0);
     }
-  }
-
-  /**
-   * Will return the element of this widget casted to an {@link SelectElement}.
-   *
-   * @return The current element as {@link SelectElement}.
-   */
-  public SelectElement getSelectElement () {
-    return selectElement.cast();
-  }
-
-  @Override
-  public void setEnabled (boolean enabled) {
-    if (!enabled)
-      getSelectElement().setAttribute("disabled", "");
-    else
-      getSelectElement().removeAttribute("disabled");
-  }
-
-  @Override
-  public boolean isEnabled () {
-    return !getSelectElement().getPropertyBoolean("disabled");
   }
 }

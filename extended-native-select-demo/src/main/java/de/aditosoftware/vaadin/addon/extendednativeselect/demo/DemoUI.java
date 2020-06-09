@@ -8,7 +8,7 @@ import com.vaadin.data.provider.ListDataProvider;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.UI;
-import de.aditosoftware.ExtendedNativeSelect;
+import de.aditosoftware.vaadin.addon.extendednativeselect.ExtendedNativeSelect;
 
 import javax.servlet.annotation.WebServlet;
 

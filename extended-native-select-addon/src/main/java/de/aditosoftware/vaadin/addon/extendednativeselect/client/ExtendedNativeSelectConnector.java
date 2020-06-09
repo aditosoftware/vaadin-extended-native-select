@@ -54,17 +54,17 @@ public class ExtendedNativeSelectConnector extends AbstractSingleSelectConnector
   @Override
   public void onStateChanged (StateChangeEvent stateChangeEvent) {
     super.onStateChanged(stateChangeEvent);
-
-    if (stateChangeEvent.hasPropertyChanged("selectedItemKey")) {
-      GWT.log("### " + getState().selectedItemKey);
-      getWidget().setCurrentValue(new KeyValueOption(getState().selectedItemKey, null));
-    }
   }
 
   @OnStateChange({"emptySelectionAllowed", "placeholder"})
   private void onEmptySelectionChange () {
     getWidget().setEmptySelectionAllowed(getState().emptySelectionAllowed);
     getWidget().setPlaceholder(getState().placeholder);
+  }
+
+  @OnStateChange({"selectedItemKey"})
+  private void onSelectedItemKeyChange () {
+    getWidget().setCurrentValue(new KeyValueOption(getState().selectedItemKey, null));
   }
 
   @Override
@@ -96,5 +96,6 @@ public class ExtendedNativeSelectConnector extends AbstractSingleSelectConnector
     }
 
     getWidget().setOptions(entries, false);
+    onSelectedItemKeyChange();
   }
 }
