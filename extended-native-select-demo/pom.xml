@@ -69,7 +69,7 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>de.aditosoftware</groupId>
+			<groupId>de.aditosoftware.vaadin.addon</groupId>
 			<artifactId>extended-native-select</artifactId>
 			<version>${project.version}</version>
 		</dependency>
