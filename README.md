@@ -2,6 +2,10 @@
 
 This add-on provides a native select with placeholder and empty selection capabilities. This is mostly inspired by the [NativeSelect](https://vaadin.com/docs/v8/framework/components/components-nativeselect.html) provided by the Vaadin framework.
 
+## Download release
+
+Official releases of this add-on are available at Vaadin Directory. For Maven instructions, download and reviews, go to https://vaadin.com/addon/extended-native-select
+
 ## Getting started
 
 Here is a simple example on how to try out the add-on
