@@ -1,6 +1,7 @@
 package de.aditosoftware.vaadin.addon.extendednativeselect.client;
 
 import com.vaadin.client.annotations.OnStateChange;
+import com.vaadin.client.communication.StateChangeEvent;
 import com.vaadin.client.connectors.AbstractSingleSelectConnector;
 import com.vaadin.client.data.DataSource;
 import com.vaadin.shared.Range;
@@ -68,14 +69,17 @@ public class ExtendedNativeSelectConnector
    */
   @OnStateChange({"selectedItemKey"})
   private void onSelectedItemKeyChange () {
-    String key = getState().selectedItemKey;
+    try {
+      String key = getState().selectedItemKey;
 
-    // If null is given, this means that no value (aka placeholder) shall be
-    // selected.
-    if (key == null)
-      getWidget().getSelect().setCurrentValue(null);
-    else
-      getWidget().getSelect().setCurrentValue(getState().selectedItemKey);
+      // If null is given, this means that no value (aka placeholder) shall be
+      // selected.
+      if (key == null)
+        getWidget().getSelect().setCurrentValue(null);
+      else
+        getWidget().getSelect().setCurrentValue(getState().selectedItemKey);
+    } catch (Exception ignored) {
+    }
   }
 
   /**
