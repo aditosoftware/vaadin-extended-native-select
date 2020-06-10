@@ -20,9 +20,9 @@ component.setPlaceholder("Eigenschaften");
 
 # Building and running demo
 
-- git clone https://github.com/aditosoftware/vaadin-history-api
+- git clone https://github.com/aditosoftware/vaadin-extended-native-select
 - mvn clean install
-- cd history-api-demo
+- cd extended-native-select-demo
 - mvn jetty:run
 
 To see the demo, navigate to http://localhost:8080/
