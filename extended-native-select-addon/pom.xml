@@ -6,7 +6,7 @@
     <artifactId>extended-native-select</artifactId>
     <packaging>jar</packaging>
     <version>1.0.0</version>
-    <name>Extended Native Select Add-on</name>
+    <name>Extended Native Select</name>
 
     <prerequisites>
         <maven>3</maven>
