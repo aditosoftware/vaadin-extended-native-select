@@ -5,7 +5,7 @@
 	<groupId>de.aditosoftware.vaadin.addon</groupId>
 	<artifactId>extended-native-select-demo</artifactId>
 	<packaging>war</packaging>
-	<version>1.0.0</version>
+	<version>1.0.1</version>
 	<name>Extended Native Select Add-on Demo</name>
 
 	<prerequisites>
