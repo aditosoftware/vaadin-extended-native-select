@@ -6,6 +6,7 @@ import com.vaadin.event.FieldEvents;
 import com.vaadin.shared.Registration;
 import com.vaadin.shared.data.DataCommunicatorConstants;
 import com.vaadin.ui.AbstractSingleSelect;
+import com.vaadin.ui.ItemCaptionGenerator;
 import de.aditosoftware.vaadin.addon.extendednativeselect.client.ExtendedNativeSelectState;
 
 /**
@@ -36,6 +37,11 @@ public class ExtendedNativeSelect<T>
   public Registration addBlurListener (FieldEvents.BlurListener listener) {
     return addListener(FieldEvents.BlurEvent.EVENT_ID, FieldEvents.BlurEvent.class, listener,
         FieldEvents.BlurListener.blurMethod);
+  }
+
+  @Override
+  public void setItemCaptionGenerator (ItemCaptionGenerator<T> itemCaptionGenerator) {
+    super.setItemCaptionGenerator(itemCaptionGenerator);
   }
 
   @Override
